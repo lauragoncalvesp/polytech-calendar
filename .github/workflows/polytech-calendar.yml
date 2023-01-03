@@ -1,0 +1,18 @@
+name: "update-calendar"
+on:
+  schedule:
+  - cron: "0 4 * * *"
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+
+      - name: Download calendar
+        run: wget -O cal.ics ${{ secrets.CALENDAR_URL }}
+
+      - name: Commit if the calendar changes
+        run: |
+          test -n "$(git diff)" && git commit -m 'update-calendar' && git push
