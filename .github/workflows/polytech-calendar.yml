@@ -17,6 +17,11 @@ jobs:
       - name: Download calendar
         run: wget -O cal.ics ${{ secrets.CALENDAR_URL }}
 
+      - name: Setup identity
+        run: |
+          git config --global user.email "bot@example.com"
+          git config --global user.name "Github Actions"
+          
       - name: Commit if the calendar changes
         run: (test -n "$(git diff)" && git add cal.ics && git commit -m 'update-calendar') || true
           
