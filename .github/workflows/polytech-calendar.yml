@@ -2,6 +2,10 @@ name: "update-calendar"
 on:
   schedule:
   - cron: "0 4 * * *"
+  
+  push:
+    branches:
+      - main
 
 jobs:
   update-calendar:
